@@ -6,6 +6,8 @@ An interactive Python dashboard for analysing Premier League player shooting per
 
 ![Premier League Shot Analysis Dashboard](dashboard.png)
 
+(As of 13/10/2026)
+
 ### Development Progress
 
 ### Completed
