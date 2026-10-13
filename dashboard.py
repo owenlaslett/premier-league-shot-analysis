@@ -42,7 +42,7 @@ def load_players(season): # Function defined
     with UnderstatClient() as understat: # Creates a client of communicating with Understat, and the with statement closes the client when finished with
         players = understat.league(
             league="EPL" # Selects Premier League
-        ).get_player_data(season="2026") #26/27 Season
+        ).get_player_data(season=season) #Season
     return players # Gives list of all players to the function 
 
 # Download a selected player's shots
