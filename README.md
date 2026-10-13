@@ -1,3 +1,11 @@
+# Premier League Shot Analysis
+
+An interactive Python dashboard for analysing Premier League player shooting performance.
+
+## Dashboard Preview
+
+![Premier League Shot Analysis Dashboard](dashboard.png)
+
 ### Development Progress
 
 ### Completed
