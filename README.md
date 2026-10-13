@@ -18,6 +18,7 @@
 - [ ] Calculate advanced shooting statistics
 - [ ] Improve dashboard appearance
 - [ ] Add match-by-match analysis
+- [ ] Optimise xG circle size
 
 ### Project Aim
 To develop an interactive football analytics platform that allows users to investigate Premier League player shooting performance using real match data, statistical analysis and data visualisation.
