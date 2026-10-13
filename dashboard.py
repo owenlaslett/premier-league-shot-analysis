@@ -21,11 +21,24 @@ st.markdown("""
 """, unsafe_allow_html=True) # This code stops the content streching across entire monitor and reduces excessive space at the top
 
 st.title("Premier League Shot Analysis") # Main heading
-st.write("2026/27 Season") # Text 
+season_options = {
+    "2026/27": "2026",   
+    "2025/26": "2025", 
+    "2024/25": "2024", 
+    "2023/24": "2023", 
+    "2022/23": "2022" 
+}
+selected_season = st.selectbox( # Creates a dropdown menu
+    "Select a season:",
+    list(season_options.keys()) # Displays the keys of the dictionary, which are the seasons
+)
+
+season = season_options[selected_season] # Associates the selected season with its corresponding value in the dictionary
+
 
 # Download the player list
 @st.cache_data(ttl=3600) # Decorator used, which tells Streamlit to remember the result for an hour, to reduce any unnecessary requests
-def load_players(): # Function defined
+def load_players(season): # Function defined
     with UnderstatClient() as understat: # Creates a client of communicating with Understat, and the with statement closes the client when finished with
         players = understat.league(
             league="EPL" # Selects Premier League
@@ -34,7 +47,7 @@ def load_players(): # Function defined
 
 # Download a selected player's shots
 @st.cache_data(ttl=3600)
-def load_shots(player_id): # Unique player identifier
+def load_shots(player_id, season): # Unique player identifier
     with UnderstatClient() as understat:
         all_shots = understat.player(
             player=player_id
@@ -42,11 +55,11 @@ def load_shots(player_id): # Unique player identifier
 
     return [
         shot for shot in all_shots # Returns when it meets a condtion, in a for loop
-        if str(shot["season"]) == "2026"
+        if str(shot["season"]) == season
     ]
 
 # Create a player selection menu
-players = load_players() # Calls load_players function we defined earlier
+players = load_players(season) # Calls load_players function we defined earlier
 
 player_options = {
     player["player_name"]: player["id"] # Creates a dictionary
@@ -63,7 +76,7 @@ with left_panel:
 
 # Get the selected player's shots
 player_id = player_options[selected_name] # Associates the ID with the player selected
-shots = load_shots(player_id) # Calls load_shots to retrieve their shots
+shots = load_shots(player_id, season) # Calls load_shots to retrieve their shots, from the specific season that was chosen
 
 # Calculate statistics
 goals = [shot for shot in shots if shot["result"] == "Goal"] # This caluclates a list of goals, and checks to see if a shot outcome is == (equal) to a goal
@@ -103,7 +116,7 @@ shot_x = [float(shot["X"]) * 120 for shot in shots]
 shot_y = [80 - float(shot["Y"]) * 80 for shot in shots]
 
 # Only create a heatmap if there are enough shots
-if len(shots) >= 10 and len(set(shot_x)) > 1 and len(set(shot_y)) > 1: # skips heatmap of players with very few shots
+if len(shots) >= 5 and len(set(shot_x)) > 1 and len(set(shot_y)) > 1: # skips heatmap of players with very few shots
     pitch.kdeplot(
         shot_x, # gets the position of every shot
         shot_y,
