@@ -10,6 +10,15 @@ st.set_page_config( # Sets the browser tab title and page layout
     page_title="Premier League Analytics",
     layout="wide" # Uses the whole screen
 )
+st.markdown(""" 
+<style>
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+</style>
+""", unsafe_allow_html=True) # This code stops the content streching across entire monitor and reduces excessive space at the top
 
 st.title("Premier League Shot Analysis") # Main heading
 st.write("2026/27 Season") # Text 
@@ -44,9 +53,9 @@ player_options = {
     for player in players
 }
 
-selector_col, empty_col = st.columns([1,2]) # Splits the avaliable spaces into columns, first gets 1/3, senond gets 2/3s
+left_panel, right_panel = st.columns([1,1.3]) # Splits the avaliable spaces into columns, first gets 1/2.3, senond gets 1.3/2.3
 
-with selector_col:
+with left_panel:
     selected_name = st.selectbox( # Creats a dropdown menu
     "Select a player:",
     sorted(player_options.keys()) # Sorted arranges the names alphabetically, and .keys() retrieves the players names from the dictionary
@@ -57,25 +66,23 @@ player_id = player_options[selected_name] # Associates the ID with the player se
 shots = load_shots(player_id) # Calls load_shots to retrieve their shots
 
 # Calculate statistics
-goals = [
-    shot for shot in shots # This caluclates a list of goals, and checks to see if a shot outcome is == (equal) to a goal
-    if shot["result"] == "Goal"
-]
-
+goals = [shot for shot in shots if shot["result"] == "Goal"] # This caluclates a list of goals, and checks to see if a shot outcome is == (equal) to a goal
 total_xg = sum(float(shot["xG"]) for shot in shots) # shot["xG"] retrieves expected goal value of the shot, float () converts that number to a decimal, for loop goes through every shot, sum() adds them together
+xg_per_shot = total_xg/len(shots) if shots else 0 # Calculates the average quality of players shots
 
 # Display player statistics
-st.subheader(selected_name) # Creates a heading with the selected players name
+with left_panel:
+    st.subheader(selected_name) # Creates a heading with the selected players name
 
-col1, col2, col3 = st.columns(3) # Splits dashboard into 3 columns
+    stat1, stat2 = st.columns(2) # 2x2 stats on RHS
+    stat3, stat4 = st.columns(2) # 2x2 stats on RHS
 
-col1.metric("Total Shots", len(shots), border=True) # len counts how many items are in a collection
-col2.metric("Goals", len(goals), border=True)
-col3.metric("Expected Goals", f"{total_xg:.2f}", border=True) # :.2f rounds to 2 decimal places
+    stat1.metric("Total Shots", len(shots), border=True) # len counts how many items are in a collection
+    stat2.metric("Goals", len(goals), border=True)
+    stat3.metric("Expected Goals", f"{total_xg:.2f}", border=True) # :.2f rounds to 2 decimal places
+    stat4.metric("xG per shot", f"{xg_per_shot:.3f}", border=True) # :.3f rounds to 3 decimal places
 
 
-# Create the shot map
-st.subheader("Player Shot Map")
 
 pitch = VerticalPitch( # Creates the vertical football pitch
     pitch_type="statsbomb",
@@ -84,7 +91,7 @@ pitch = VerticalPitch( # Creates the vertical football pitch
     line_color="white"
 )
 
-fig, ax = pitch.draw(figsize=(7, 9)) # fig is overall figure, ax is area where pitch and shot markers are drawn
+fig, ax = pitch.draw(figsize=(5, 6)) # fig is overall figure, ax is area where pitch and shot markers are drawn
 fig.patch.set_facecolor("#101820")
 
 # Separate goals from other shots
@@ -130,8 +137,8 @@ ax.legend(
 )
 
 # Display the pitch inside Streamlit
-left, centre, right = st.columns([1, 2, 1])
-with centre:
+with right_panel:
+    st.subheader ("Player Shot Map")
     st.pyplot(fig) # Takes matplotlib figure and displays it inside Streamlit
 
 # Close the Matplotlib figure to free memory
