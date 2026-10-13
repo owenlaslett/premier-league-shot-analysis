@@ -88,11 +88,36 @@ pitch = VerticalPitch( # Creates the vertical football pitch
     pitch_type="statsbomb",
     half=True, # Only display a half of the pitch
     pitch_color="#101820",
-    line_color="white"
+    line_color="white",
+    line_zorder=2
 )
 
 fig, ax = pitch.draw(figsize=(5, 6)) # fig is overall figure, ax is area where pitch and shot markers are drawn
 fig.patch.set_facecolor("#101820")
+
+
+# Create a shot-density heatmap
+
+# Convert Understat coordinates to StatsBomb coordinates
+shot_x = [float(shot["X"]) * 120 for shot in shots]
+shot_y = [80 - float(shot["Y"]) * 80 for shot in shots]
+
+# Only create a heatmap if there are enough shots
+if len(shots) >= 10 and len(set(shot_x)) > 1 and len(set(shot_y)) > 1: # skips heatmap of players with very few shots
+    pitch.kdeplot(
+        shot_x, # gets the position of every shot
+        shot_y,
+        ax=ax,
+        fill=True, # full heat map
+        levels=20, # 40 density colours
+        cmap = "magma", # Dark purple, red and yellow palette
+        alpha=0.6, # Slightly transparent 
+        bw_adjust=0.9, # controls how smoothly shot locations are grouped
+        thresh=0.15, # Hide low density areas
+        cut=2,
+        zorder=1 # Position heat maps behind pitch markings and shot circles
+    )
+
 
 # Separate goals from other shots
 goals = [shot for shot in shots if shot["result"] == "Goal"]
@@ -105,7 +130,8 @@ pitch.scatter( # plots circles on the pitch
     s=[25 + float(shot["xG"]) * 100 for shot in misses], # s controls the area of each circle, with s = 80+ 650(xG)
     color="white",
     edgecolors="black",
-    ax=ax
+    ax=ax,
+    zorder=3
 )
 
 # Plot goals
@@ -115,7 +141,8 @@ pitch.scatter(
     s=[25 + float(shot["xG"]) * 100 for shot in goals],
     color="red",
     edgecolors="white",
-    ax=ax
+    ax=ax,
+    zorder=3
 )
 
 # Add a legend
