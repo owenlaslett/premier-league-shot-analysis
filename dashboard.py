@@ -128,12 +128,44 @@ legend_elements = [
            markersize=10, label="Other shot")
 ]
 
-ax.legend(
+goal_legend = ax.legend(
     handles=legend_elements,
     loc="lower left", # Places legend in top corner
     facecolor="#101820",
     labelcolor="white",
-    edgecolor="white"
+    edgecolor="white" ,
+    fontsize= 11,
+    prop={"family": "DejaVu Sans", "size":11}, # Font type
+    handlelength=0.8, # Reduces the space allocated to circles
+    handletextpad=0.3 # Reduces the gap between each circle and its text
+)
+
+# Keep first legend visible
+ax.add_artist(goal_legend) # Tells matplotlib to keep original legend
+
+xg_values = [0.05, 0.30, 0.70] # Choose which chance-quality value appear in the legend
+xg_handles = [
+    Line2D(
+        [0], [0],
+        marker="o",
+        linestyle="None",
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markersize=(25 + xg * 100) ** 0.5, # Makes legend circles match the shot-size formula, then square rooted
+        label=f"{xg:.2f} xG"
+    )
+    for xg in xg_values
+]
+
+ax.legend(
+    handles=xg_handles,
+    loc="lower right",
+    facecolor="#101820",
+    labelcolor="white",
+    edgecolor="white",
+    prop={"family": "DejaVu Sans", "size": 11},
+    handlelength=0.8,
+    handletextpad=0.3
 )
 
 # Display the pitch inside Streamlit
