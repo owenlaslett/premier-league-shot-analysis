@@ -102,7 +102,7 @@ misses = [shot for shot in shots if shot["result"] != "Goal"]
 pitch.scatter( # plots circles on the pitch
     [float(shot["X"]) * 120 for shot in misses], # Multiplying by 120 allows convertion from Understat shot coordinates to StatsBomb pitch representation
     [80 - float(shot["Y"]) * 80 for shot in misses], # Subtraction needed as the shot map was initially mirrored
-    s=[80 + float(shot["xG"]) * 650 for shot in misses], # s controls the area of each circle, with s = 80+ 650(xG)
+    s=[25 + float(shot["xG"]) * 100 for shot in misses], # s controls the area of each circle, with s = 80+ 650(xG)
     color="white",
     edgecolors="black",
     ax=ax
@@ -112,7 +112,7 @@ pitch.scatter( # plots circles on the pitch
 pitch.scatter(
     [float(shot["X"]) * 120 for shot in goals],
     [80 - float(shot["Y"]) * 80 for shot in goals],
-    s=[80 + float(shot["xG"]) * 650 for shot in goals],
+    s=[25 + float(shot["xG"]) * 100 for shot in goals],
     color="red",
     edgecolors="white",
     ax=ax
