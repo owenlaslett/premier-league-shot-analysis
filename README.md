@@ -23,10 +23,11 @@ An interactive Python dashboard for analysing Premier League player shooting per
 - [x] Create an xG marker-size legend
 - [x] Add season selection
 - [x] Optimise xG circle size
+- [x] Add club selection
+- [x] Fix apostrophe glitch
+- [x] Compare two players side by side
 
 ### In Progress / Planned
-- [ ] Add club selection
-- [ ] Fix apostrophe glitch
 - [ ] Compare two players side by side
 - [ ] Calculate advanced shooting statistics
 - [ ] Add match-by-match analysis
