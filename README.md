@@ -21,15 +21,15 @@ An interactive Python dashboard for analysing Premier League player shooting per
 - [x] Introduce shot-density heatmaps
 - [x] Deploy dashboard using Streamlit Community Cloud
 - [x] Create an xG marker-size legend
+- [x] Add season selection
+- [x] Optimise xG circle size
 
 ### In Progress / Planned
-- [ ] Add season selection
 - [ ] Add club selection
 - [ ] Compare two players side by side
 - [ ] Calculate advanced shooting statistics
-- [ ] Improve dashboard appearance
 - [ ] Add match-by-match analysis
-- [ ] Optimise xG circle size
+- [ ] Add player images
 
 ### Project Aim
 To develop an interactive football analytics platform that allows users to investigate Premier League player shooting performance using real match data, statistical analysis and data visualisation.
