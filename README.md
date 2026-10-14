@@ -30,6 +30,7 @@ An interactive Python dashboard for analysing Premier League player shooting per
 - [ ] Calculate advanced shooting statistics
 - [ ] Add match-by-match analysis
 - [ ] Add player images
+- [ ] Add heatmap legend
 
 ### Project Aim
 To develop an interactive football analytics platform that allows users to investigate Premier League player shooting performance using real match data, statistical analysis and data visualisation.
