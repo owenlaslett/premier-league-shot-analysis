@@ -7,4 +7,5 @@ Altered dashboard, adding left_panel and right_panel commands, with a new statis
 ![Premier League Shot Analysis Dashboard](dashboard3.png)
 New legend added for xG in bottom right, xG circle size scaled down to represent scale of chance more accurately
 ![Premier League Shot Analysis Dashboard](dashboard4.png)
-Added shot-density heat map (subject to optimisation), using the pitch.kdeplot() from the mplsoccer libary
+Added shot-density heat map (subject to optimisation), using the pitch.kdeplot() from the mplsoccer libary. Also added option to choose a season, from the 22/23 season
+
