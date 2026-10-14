@@ -1,7 +1,6 @@
 # Premier League Shot Analysis
 
-An interactive Python dashboard for analysing Premier League player shooting performance. Can compare 2 players' shooting index's and heat maps, along with xG and xG per shot, to analyse which player is performing better according to stats.
-
+An interactive Python dashboard for analysing Premier League player shooting performance. The dashboard uses real match data from Understat to visualise shot locations, xG and shooting patterns through shot maps and heatmaps. Users can select players from different clubs and seasons, and comapre two players side by side to explore differences in shooting patterns and statistics, such as xG per shot.
 ## Dashboard Preview
 
 ![Premier League Shot Analysis Dashboard](screenshots/dashboard8.png)
@@ -34,4 +33,6 @@ An interactive Python dashboard for analysing Premier League player shooting per
 - [ ] Add heatmap legend
 
 ### Project Aim
-To develop an interactive football analytics platform that allows users to investigate Premier League player shooting performance using real match data, statistical analysis and data visualisation, and to compare different players and in different seasons..
+To develop an interactive football analytics application that combines Python programming, statistical analysis and data visualisation to explore Premier League shooting performance.
+
+The project aims to make football statistics more accessible by allowing users to investigate individual players, identify shooting patterns and compare performances across different seasons.
