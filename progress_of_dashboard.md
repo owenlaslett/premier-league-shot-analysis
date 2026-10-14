@@ -12,3 +12,5 @@ Added shot-density heat map (subject to optimisation), using the pitch.kdeplot()
 Added club choice option
 ![Premier League Shot Analysis Dashboard](dashboard6.png)
 Added player comparison
+![Premier League Shot Analysis Dashboard](dashboard7.png)
+Optimised layout
