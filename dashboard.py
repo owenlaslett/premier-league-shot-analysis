@@ -22,23 +22,86 @@ st.set_page_config( # Sets the browser tab title and page layout
 
 )
 
-st.markdown(""" 
 
+
+
+st.markdown("""
 <style>
 
+/* Main dashboard background */
+.stApp {
+    background-color: #F0F4F8;
+}
+
+/* Match the header to the background */
+[data-testid="stHeader"],
+[data-testid="stAppHeader"],
+.stApp > header {
+    background-color: #F0F4F8 !important;
+}
+
+/* White statistics boxes */
+[data-testid="stMetric"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #D5DCE5 !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+}
+
+/* Reduce number size so values fit */
+[data-testid="stMetricValue"] {
+    font-size: 1.5rem !important;
+}
+
+/* Make metric labels more compact */
+[data-testid="stMetricLabel"] {
+    font-size: 0.8rem !important;
+}
+
+/* Make dropdown boxes white */
+div[data-baseweb="select"] > div {
+    background-color: #FFFFFF !important;
+    border: 1px solid #D5DCE5 !important;
+    border-radius: 8px !important;
+    color: #172033 !important;
+}
+
+/* Keep dropdown text dark */
+div[data-baseweb="select"] span {
+    color: #172033 !important;
+}
+
+/* Blue outline when selecting */
+div[data-baseweb="select"]:focus-within > div {
+    border-color: #6B93BC !important;
+    box-shadow: 0 0 0 1px #6B93BC !important;
+}
+
+/* Dashboard width and spacing */
 .block-container {
-
     max-width: 1400px;
-
     padding-top: 1rem;
-
     padding-bottom: 1rem;
+}
 
+/* White dropdown backgrounds */
+.stSelectbox div[data-baseweb="select"] > div:first-child {
+    background-color: #FFFFFF !important;
+    border: 1px solid #D5DCE5 !important;
+    border-radius: 8px !important;
+}
+
+/* Dark dropdown text */
+.stSelectbox div[data-baseweb="select"] {
+    color: #172033 !important;
 }
 
 </style>
+""", unsafe_allow_html=True)
 
-""", unsafe_allow_html=True) # This code stops the content streching across entire monitor and reduces excessive space at the top
+
+
+ # This code stops the content streching across entire monitor and reduces excessive space at the top
 
 st.title("Premier League Shot Analysis") # Main heading
 
@@ -199,17 +262,17 @@ def show_statistics(shots):
 
     stat1, stat2, stat3, stat4 = st.columns(4)
 
-    stat1.metric("Total Shots", len(shots), border=True)
+    stat1.metric("Shots", len(shots), border=True)
     stat2.metric("Goals", len(goals), border=True)
 
     stat3.metric(
-        "Expected Goals",
+        "xG",
         f"{total_xg:.2f}",
         border=True
     )
 
     stat4.metric(
-        "xG per shot",
+        "xG/Shot",
         f"{xg_per_shot:.2f}",
         border=True
     )
