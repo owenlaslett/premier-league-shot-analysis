@@ -26,6 +26,7 @@ An interactive Python dashboard for analysing Premier League player shooting per
 
 ### In Progress / Planned
 - [ ] Add club selection
+- [ ] Fix apostrophe glitch
 - [ ] Compare two players side by side
 - [ ] Calculate advanced shooting statistics
 - [ ] Add match-by-match analysis
